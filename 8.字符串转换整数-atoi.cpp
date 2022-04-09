@@ -1,5 +1,6 @@
 #include <string>
 #include <limits>
+#include <vector>
 using namespace std;
 /*
  * @lc app=leetcode.cn id=8 lang=cpp
