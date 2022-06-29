@@ -21,7 +21,7 @@ public:
 
     // Decodes a shortened URL to its original URL.
     string decode(string shortUrl) {
-        int position = shortUrl.rfind('/');
+        int position = shortUrl.rfind('/') + 1;
 
         return db[stoi(shortUrl.substr(position,shortUrl.size()-position))];
     }
