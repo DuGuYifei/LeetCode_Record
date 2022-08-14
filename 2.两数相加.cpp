@@ -17,9 +17,9 @@
  */
 class Solution
 {
-public:
-    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+public:rs(ListNode *l1, ListNode *l2)
     {
+    ListNode *addTwoNumbe
         ListNode *list = new ListNode(0);
         ListNode *current = list;
         ListNode *before = nullptr;
