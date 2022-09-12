@@ -9,38 +9,48 @@ using namespace std;
  */
 
 // @lc code=start
-class Solution {
+class Solution
+{
 public:
-    int maximumSwap(int num) {
+    int maximumSwap(int num)
+    {
         vector<int> nums;
-        while(num != 0)
+        while (num)
         {
             nums.push_back(num % 10);
             num /= 10;
         }
         int n = nums.size();
         vector<int> idx(n);
-        iota(idx.begin(),idx.end(),0);
+        iota(idx.begin(), idx.end(), 0);
 
-        sort(idx.begin(),idx.end(), [r=nums.data()](const int& a, const int &b){return r[a] > r[b]? true:a > b;});
+        sort(idx.begin(), idx.end(), [r = nums.data()](int &a, int &b)
+             {
+        if (r[a] > r[b])
+            return true;
+        if (r[a] == r[b])
+            return a > b;
+        else
+            return false; });
         n--;
-        for(auto& i : idx)
+        for (int i = 0; i < nums.size(); i++)
         {
-            if(nums[i] >= nums[n])
+            if (nums[idx[i]] > nums[n])
             {
-                if(i == n)
+                while (i< nums.size() && nums[idx[i + 1]] == nums[idx[i]])
                 {
-                    n--;
+                    i++;
                 }
-                else
-                {
-                    swap(nums[i], nums[n]);
-                    break;
-                }
+                swap(nums[idx[i]], nums[n]);
+                break;
+            }
+            else if (nums[idx[i]] == nums[n])
+            {
+                n--;
             }
         }
 
-        for(int i = nums.size() - 1; i >= 0; i--)
+        for (int i = nums.size() - 1; i >= 0; i--)
         {
             num *= 10;
             num += nums[i];
@@ -49,4 +59,3 @@ public:
     }
 };
 // @lc code=end
-
