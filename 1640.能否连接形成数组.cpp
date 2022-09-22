@@ -20,15 +20,13 @@ public:
         {
             if(!(~idx[i[0]]))
                 return false;
-            t = idx[i[0]];
             int n = i.size();
             for(int j = 1; j < n; j++)
             {
                 if(!(~idx[i[j]]))
                     return false;
-                if(idx[i[j]] != t + 1)
+                if(idx[i[j]] != idx[i[j-1]] + 1)
                     return false;
-                t = idx[i[j]];
             }
         }
         return true;
