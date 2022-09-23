@@ -10,11 +10,9 @@ using namespace std;
  */
 
 // @lc code=start
-class Solution
-{
+class Solution{
 public:
-    int minSwap(const string &s1, const string &s2, const int &pos)
-    {
+    int minSwap(const string &s1, const string &s2, const int &pos){
         int tot = 0;
         for (int i = pos; i < s1.size(); i++)
         {
@@ -23,8 +21,7 @@ public:
         return tot + 1 >> 1;
     }
 
-    int kSimilarity(string s1, string s2)
-    {
+    int kSimilarity(string s1, string s2){
         string str1, str2;
         for (int i = 0; i < s1.size(); i++) {
             if (s1[i] != s2[i]) {
@@ -36,7 +33,7 @@ public:
         if (n == 0) {
             return 0;
         }
-        int ans = 16; // f - a = 6. maxlen = 20. (6-1) * (20/6) + (20%6-1) = 16
+        int ans = n - 1;
         function<void(int,int)> dfs = [&](int pos, int cost){
             if(cost > ans)
                 return;
@@ -44,8 +41,9 @@ public:
                 pos++;
             if(pos == n){
                 ans = min(ans, cost);
+                return;
             }
-            if(cost + minSwap(str1, str2, pos) > ans)
+            if(cost + minSwap(str1, str2, pos) >= ans)
                 return;
             
             for(int i = pos + 1; i < n ; i++)
@@ -58,6 +56,7 @@ public:
                 }
             }
         };
+        dfs(0,0);
         return ans;
     }
 };
