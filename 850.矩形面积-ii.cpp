@@ -1,4 +1,5 @@
 #include <vector>
+#include <algorithm>
 using namespace std;
 /*
  * @lc app=leetcode.cn id=850 lang=cpp
@@ -10,7 +11,8 @@ using namespace std;
 class Solution {
 public:
     int rectangleArea(vector<vector<int>>& rectangles) {
-        int 
+        
+
     }
 };
 // @lc code=end
