@@ -57,7 +57,6 @@ public:
                 if(~i)
                 {
                     ans += dfs(s1, erridx, i, le);
-                    i = -1;
                 }
             }
         }
