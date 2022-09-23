@@ -1,6 +1,7 @@
 #include <unordered_map>
 #include <vector>
 #include <string>
+#include <functional>
 using namespace std;
 /*
  * @lc app=leetcode.cn id=854 lang=cpp
@@ -12,54 +13,51 @@ using namespace std;
 class Solution
 {
 public:
-    int dfs(const string &s1, unordered_map<char, vector<char>> &erridx, int i, const char &le)
+    int minSwap(const string &s1, const string &s2, const int &pos)
     {
-        if (s1[i] == le)
-            return 0;
-        int res = 20;
-        unordered_map<char, vector<char>> e = erridx;
-        for (auto &j : e[s1[i]])
+        int tot = 0;
+        for (int i = pos; i < s1.size(); i++)
         {
-            if (~j)
-            {
-                int it = i;
-                i = j;
-                j = -1;
-                int times = dfs(s1, e, i, le) + 1;
-                if (times < res)
-                {
-                    res = times;
-                    erridx = e;
-                }
-                j = i;
-                i = it;
-            }
+            tot += s1[i] != s2[i];
         }
-        return res;
+        return tot + 1 >> 1;
     }
 
     int kSimilarity(string s1, string s2)
     {
-        unordered_map<char, vector<char>> erridx; // length [1,20] 所以 vector char 代替 vector int
-        int n = s1.size();
-        for (int i = 0; i < n; i++)
-        {
-            if (s1[i] != s2[i])
-            {
-                erridx[s2[i]].push_back(i);
+        string str1, str2;
+        for (int i = 0; i < s1.size(); i++) {
+            if (s1[i] != s2[i]) {
+                str1.push_back(s1[i]);
+                str2.push_back(s2[i]);
             }
         }
-        int ans = 0;
-        for (auto &[le, ids] : erridx)
-        {
-            for (auto &i : ids)
+        int n = str1.size();
+        if (n == 0) {
+            return 0;
+        }
+        int ans = 16; // f - a = 6. maxlen = 20. (6-1) * (20/6) + (20%6-1) = 16
+        function<void(int,int)> dfs = [&](int pos, int cost){
+            if(cost > ans)
+                return;
+            while(pos < n && str1[pos] == str2[pos])
+                pos++;
+            if(pos == n){
+                ans = min(ans, cost);
+            }
+            if(cost + minSwap(str1, str2, pos) > ans)
+                return;
+            
+            for(int i = pos + 1; i < n ; i++)
             {
-                if(~i)
+                if(str1[i] == str2[pos])
                 {
-                    ans += dfs(s1, erridx, i, le);
+                    swap(str1[i], str1[pos]);
+                    dfs(pos + 1, cost +1);
+                    swap(str1[i], str1[pos]);
                 }
             }
-        }
+        };
         return ans;
     }
 };
