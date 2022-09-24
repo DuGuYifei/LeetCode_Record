@@ -61,7 +61,7 @@ public:
                 auto &&[_, idx, diff] = sweep[k];
                 // left 是每个重复的横坐标所在矩形的下边界，right 是上边界
                 int left = rectangles[idx][1], right = rectangles[idx][3];
-                //遍历非重复的纵坐标
+                //遍历纵坐标段
                 for (int x = 0; x < m - 1; x++)
                 {
                     // 如果left，right所在的矩形
