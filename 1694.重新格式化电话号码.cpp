@@ -14,15 +14,15 @@ public:
         int cnt = 0;
         for(char& i: number)
         {
-            if(cnt == 3)
-            {
-                ans.push_back('-');
-                cnt = 0;
-            }
             if(i >= '0')
             {
                 ans.push_back(i);
                 cnt++;
+            }
+            if(cnt == 3)
+            {
+                ans.push_back('-');
+                cnt = 0;
             }
         }
         if(cnt == 1)
