@@ -22,6 +22,7 @@ public:
             }
             prev = i;
         }
+        ans = max(ans, sum);
         return ans;
     }
 };
