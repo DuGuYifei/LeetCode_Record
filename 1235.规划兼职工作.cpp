@@ -87,9 +87,9 @@ public:
         for(int i = 1; i <= n; i++)
         {
             int k = upper_bound(jobs.begin(), jobs.begin() + i - 1, jobs[i-1][0], [&](int st, const vector<int>& job){
-                return st< job[1];
+                return st < job[1]; // 找到第一个比它大的值的索引，则前一个刚好是最后一个小于等于 jobs[i-1][0]的值
             }) - jobs.begin();
-            dp[i] = max(dp[i - 1], dp[k] + jobs[i - 1][2]);
+            dp[i] = max(dp[i - 1], dp[k] + jobs[i - 1][2]); // 直接用k是因为dp有个默认dp[0] = 0，相当于比jobs多出一个索引
         }
         return dp[n];
     }
