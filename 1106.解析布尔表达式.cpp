@@ -104,7 +104,7 @@ public:
         {
         case '!':
             i += 2;
-            ans = notEx(expression, i);
+            ans = !notEx(expression, i);
             break;
         case '|':
             i += 2;
@@ -116,7 +116,10 @@ public:
             break;
         case 'f':
             ans = true;
+            break;
         }
+
+        i++;
 
         return ans;
     }   
@@ -142,6 +145,7 @@ public:
                 break;
             case 't':
                 ans = true;
+                break;
             default:
                 break;
             }
@@ -173,6 +177,7 @@ public:
                 break;
             case 'f':
                 ans = false;
+                break;
             default:
                 break;
             }
