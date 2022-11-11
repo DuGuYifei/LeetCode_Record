@@ -1,3 +1,4 @@
+#include <numeric>;
 /*
  * @lc app=leetcode.cn id=1401 lang=cpp
  *
@@ -70,7 +71,18 @@
 class Solution {
 public:
     bool checkOverlap(int radius, int xCenter, int yCenter, int x1, int y1, int x2, int y2) {
-        
+        int a = pow(x1 - xCenter, 2);
+        int b = pow(x2 - xCenter, 2);
+        int m = pow(y1 - yCenter, 2);
+        int n = pow(y2 - yCenter, 2);
+        int r = radius * radius;
+        if(a + m <= r || a + n <= r || b + m <= r || b + n <= r)
+            return true;
+        if(x1 <= xCenter + radius && x2 >= xCenter - radius && y1 <= yCenter && y2 >= yCenter)
+            return true;
+        if(y1 <= yCenter + radius && y2 >= yCenter - radius && x1 <= xCenter && x2 >= xCenter)
+            return true;
+        return false;
     }
 };
 // @lc code=end
