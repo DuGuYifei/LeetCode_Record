@@ -66,7 +66,7 @@ public:
         int n = nums.size(), m = n / 2;
         int sum = accumulate(nums.begin(), nums.end(), 0);
         bool possible = false;
-        for (int i = 0; i <= m; i++)
+        for (int i = 1; i <= m; i++)
         {
             if (sum * i % n == 0) // 因为都是整数 sum * k / n 必须是整数才能使得sum(A)是整数
             {
@@ -85,9 +85,9 @@ public:
                     int curr = x + num; // curr 就是sum(A)
                     if (curr * n == sum * i)
                         return true;
-                    dp[i].emplace(curr);
+                    dp[i].insert(curr);
                 }
-        return true;
+        return false;
     }
 };
 // @lc code=end
