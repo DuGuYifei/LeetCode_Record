@@ -79,7 +79,7 @@ public:
         vector<unordered_set<int>> dp(m + 1);
         dp[0].insert(0);
         for (int num : nums)
-            for (int i = m; i >= 1; i--)
+            for (int i = m; i >= 1; i--) // 是自己里有几个数，从大到小是因为，dp[i]会在i-1时被插入，就改变了，其次一般平均数相同两个数组应该数量不会差太多，这样可以减少计算量
                 for (int x : dp[i - 1])
                 {
                     int curr = x + num; // curr 就是sum(A)
