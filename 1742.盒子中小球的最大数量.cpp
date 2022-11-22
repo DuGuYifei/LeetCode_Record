@@ -1,3 +1,5 @@
+#include <unordered_map>
+using namespace std;
 /*
  * @lc app=leetcode.cn id=1742 lang=cpp
  *
@@ -69,8 +71,22 @@
 // @lc code=start
 class Solution {
 public:
+    unordered_map<int, int> cnt;
     int countBalls(int lowLimit, int highLimit) {
-
+        int ans = 0;
+        for(int i = lowLimit; i <= highLimit; i++)
+        {
+            int j = i;
+            int sum = 0;
+            while(j)
+            {
+                sum += j % 10;
+                j /= 10;
+            }
+            cnt[sum]++;
+            ans = max(ans, cnt[sum]);
+        } 
+        return ans;
     }
 };
 // @lc code=end
