@@ -62,27 +62,29 @@ public:
     int minOperations(string s) {
         int ans = 0;
         int n = s.size();
+        //string ss = s;
         for(int i = 1; i < n; i++)
         {
             if(s[i] == s[i-1])
             {
-                s[i] = !s[i];
+                s[i] = !(s[i] - '0') + '0';
                 ans++;
             }
         }
-        if(!ans)
-            return ans;
-        s[0] = !s[0];
-        int res = 0;
-        for(int i = 1; i < n; i++)
-        {
-            if(s[i] == s[i-1])
-            {
-                s[i] = !s[i];
-                res++;
-            }
-        }
-        return min(res, ans);
+        return min(ans, n - ans);
+        // if(!ans)
+        //     return 0;
+        // ss[0] = !(ss[0] - '0') + '0';
+        // int res = 1;
+        // for(int i = 1; i < n; i++)
+        // {
+        //     if(ss[i] == ss[i-1])
+        //     {
+        //         ss[i] = !(ss[i] - '0') + '0';
+        //         res++;
+        //     }
+        // }
+        //return min(res, ans);
     }
 };
 // @lc code=end
