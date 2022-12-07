@@ -62,11 +62,12 @@
 class Solution {
 public:
     bool squareIsWhite(string coordinates) {
-        bool c = coordinates[0] % 2;
-        bool d = coordinates[1] % 2;
-        if(c && d || !(c || d))
-            return false;
-        return true;
+        // bool c = coordinates[0] % 2;
+        // bool d = coordinates[1] % 2;
+        // if(c && d || !(c || d))
+        //     return false;
+        // return true;
+        return (coordinates[0] + coordinates[1]) % 2;
     }
 };
 // @lc code=end
