@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
 /*
  * @lc app=leetcode.cn id=1691 lang=java
