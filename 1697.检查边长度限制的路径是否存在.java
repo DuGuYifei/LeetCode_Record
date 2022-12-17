@@ -1,9 +1,7 @@
-#include <vector>
-#include <numeric>
-#include <algorithm>
-using namespace std;
+import java.util.Arrays;
+
 /*
- * @lc app=leetcode.cn id=1697 lang=cpp
+ * @lc app=leetcode.cn id=1697 lang=java
  *
  * [1697] 检查边长度限制的路径是否存在
  *
@@ -68,45 +66,42 @@ using namespace std;
 
 // @lc code=start
 class Solution {
-private:
-    vector<int> dsu;
-public:
-    int find(int x){
-        if(dsu[x] == x)
-            return x;
-        // 这样的用处是，使所有的子节点都赋值为同一个爹，尽量减少层数加速搜索
-        return dsu[x] = find(dsu[x]);
+    private int[] dsu;
+    private int find(int a){
+        if(dsu[a] == a)
+            return a;
+        return dsu[a] = find(dsu[a]);
     }
-
-    void merge(int x, int y){
-        x = find(x);
-        y = find(y);
+    private void merge(int a, int b){
+        int x = find(a);
+        int y = find(b);
         dsu[y] = x;
     }
 
-    vector<bool> distanceLimitedPathsExist(int n, vector<vector<int>>& edgeList, vector<vector<int>>& queries) {
-        sort(edgeList.begin(), edgeList.end(), [](vector<int>& a, vector<int>& b) {return a[2] < b[2];});
-        vector<int> index(queries.size());
-        iota(index.begin(), index.end(), 0);
-        sort(index.begin(), index.end(), [r = queries.data()](int& a, int& b) {return r[a][2] < r[b][2];});
-
-        vector<bool>ans(queries.size());
-        dsu = vector<int>(n);
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+        int ql = queries.length;
+        boolean[] ans = new boolean[ql];
+        Arrays.sort(edgeList, (a,b) -> a[2] - b[2]);   
+        Integer[] index = new Integer[ql];
+        for(int i = 0; i < ql; i++)
+            index[i] = i;
+        Arrays.sort(index, (a,b) -> queries[a][2] - queries[b][2]);
+        dsu = new int[n];
+        for(int i = 0; i < n; i++){
+            dsu[i] = i;
+        }
+        int m = edgeList.length;
         int id = 0;
-        int m = edgeList.size();
-        // 初始化为自己
-        iota(dsu.begin(), dsu.end(), 0);
-        for(auto& i : index)
-        {
-            while(id < m && edgeList[id][2] < queries[i][2])
-            {
+        for(int i : index){
+            while(id < m && edgeList[id][2] < queries[i][2]){
                 merge(edgeList[id][0], edgeList[id][1]);
                 id++;
             }
             ans[i] = find(queries[i][0]) == find(queries[i][1]);
         }
+
         return ans;
     }
-};
+}
 // @lc code=end
 
