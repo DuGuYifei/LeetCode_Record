@@ -1,4 +1,5 @@
 #include <vector>
+#include <queue>
 using namespace std;
 /*
  * @lc app=leetcode.cn id=1687 lang=cpp
@@ -108,21 +109,23 @@ class Solution {
 public:
     int boxDelivering(vector<vector<int>>& boxes, int portsCount, int maxBoxes, int maxWeight) {
         int n = boxes.size();
-        vector<int> preWeight(n);
-        preWeight[0] = boxes[0][1];
-        for(int i = 1; i < n; i++)
-            preWeight[i] = preWeight[i-1] + boxes[i][1];
-        
-        // fi​=min{fj​+neg(j+1,i)+2}
-        //   =min{fj​+negi​−neg(j+1)​+2}
-        //   =min{fj​−neg(j+1)​}+negi​+2
-        // fi​=min{gj​}+neg(i)+2
-        // 0 <= j < i
-        // i - j <= maxBoxes
-        // Wi - Wj <= maxWeight
-        
-
-        vector<
+        int dp = 0;
+        deque<vector<long long>> q;
+        int dif = 0;
+        long long wei = 0;
+        for(int i = 1; i <= n; i++)
+        {
+            int cur = dp + 2;
+            dif += i >= 2 && boxes[i-1][0] != boxes[i-2][0]?1:0;
+            wei += boxes[i - 1][1];
+            while(!q.empty() && q.back()[1] + dif >= cur)
+                q.pop_back();
+            q.push_back(vector<long long>{i, cur - dif, boxes[i - 1][1] - wei});
+            while(q.front()[0] <= i - maxBoxes || q.front()[2] + wei > maxWeight)
+                q.pop_front();
+            dp = q.front()[1] + dif;
+        }
+        return dp;
     }
 };
 // @lc code=end
