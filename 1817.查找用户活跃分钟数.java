@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Arrays;
 
 /*
  * @lc app=leetcode.cn id=1817 lang=java
