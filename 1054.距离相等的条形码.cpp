@@ -64,9 +64,16 @@ public:
         for(int i = 0; i < n; i++){
             auto p = v.top();
             v.pop();
-            res[i++] = p.second;
-            res[i] = v.top().second;
-            v.top.first--;
+            res[i] = p.second;
+            if(!v.empty()){
+                auto q = v.top();
+                v.pop();
+                res[++i] = q.second;
+                q.first--;
+                if(q.first > 0){
+                    v.push(q);
+                }
+            }
             p.first--;
             if(p.first > 0){
                 v.push(p);
