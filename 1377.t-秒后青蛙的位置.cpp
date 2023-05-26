@@ -74,7 +74,11 @@ using namespace std;
 class Solution {
 public:
     double frogPosition(int n, vector<vector<int>>& edges, int t, int target) {
-        if(target == 1) return 0;
+        if(target == 1){
+            if(edges.size() == 0)
+                return 1.0;
+            return 0.0;
+        }
         vector<vector<int>> tree(n + 1);
         for (auto& e : edges) {
             tree[e[0]].push_back(e[1]);
@@ -87,7 +91,11 @@ public:
         visited[1] = true;
         prob[1] = 1.0;
         while(!q.empty() && t--){
-            if(prob[target]) return 0;
+            if(prob[target]){
+                if(tree[target].size() > 1)
+                    return 0;
+                return prob[target];
+            }
             int m = q.size();
             while(m--){
                 int cur = q.front();
