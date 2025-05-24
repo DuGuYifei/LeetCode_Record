@@ -37,7 +37,7 @@ public:
             else
             {
                 string rev = {word[1], word[0]}; // 反转单词
-                if (seen.count(rev))
+                if (seen[rev])
                 {
                     ans += 4; // 找到一对可以组成回文的单词
                     seen[rev] -= 1;
