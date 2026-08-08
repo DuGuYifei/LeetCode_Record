@@ -71,14 +71,14 @@ public:
         int n = piles.size();
         int sum = 0; // 后缀和
         
-        // dp[已取走堆数][M] = 爱丽丝
+        // dp[已取走堆数][M] = 玩家之后能获得的最大石子数，dp[0][1]就是最终答案
         vector<vector<int>> dp(n + 1, vector<int>(n + 1));
         
         //i 已经取走的堆数，i = n是全取完的情况下，这时不用算就知道是0
-        for(int i = n - 1; i >= 0; i--)
+        for(int i = n - 1; i >= 0; i--) // 循环每个已取走堆数
         {
             sum += piles[i];
-            for(int M = 1; M <= n; M++)
+            for(int M = 1; M <= n; M++) // 循环每个可能的 M
             {
                 int max_m = M * 2;
                 if(max_m + i >= n)
@@ -88,7 +88,7 @@ public:
                 else
                 {
                     // X 是当前为M情况下取走多少，即max(X,M)为下一个人的M
-                    for(int X = 1; X <= max_m; X++)
+                    for(int X = 1; X <= max_m; X++) // 循环找出当前 i M 下的最优解
                     {
                         dp[i][M] = max(dp[i][M], sum - dp[i + X][max(X, M)]);
                     }
